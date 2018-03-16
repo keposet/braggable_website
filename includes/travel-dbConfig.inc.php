@@ -10,7 +10,7 @@ $dbname ='travel';
 
 // db connection string
 define('DBCONNECTION', "mysql:host=$ip;port=$port;dbname=$dbname;charset=utf8mb4;");
-define('DBUSER', getenv('kepposet'));
+define('DBUSER', getenv('C9_USER'));
 define('DBPASS', '');
 
 // auto load all classes to reduce includes
