@@ -12,6 +12,14 @@ protected function getSelectStatement(){
     return "SELECT ContinentCode, ContinentName, GeoNameId FROM Continents ";
  }
 
+protected function getIDNameStatement(){
+    return "SELECT ContinentCode, ContinentName FROM Continents ";
+}
+
+protected function getIDNameWithPicturesStatement(){
+    return $this->getIDNameStatement(). "INNER JOIN ImageDetails ON Continents.ContinentCode = ImageDetails.ContinentCode GROUP BY ".$this->getOrderFields();
+}
+
 // records against which to order the data
 protected function getOrderFields() {
     return 'ContinentName';

@@ -11,6 +11,12 @@ public function __construct($connect) {
 protected function getSelectStatement(){
     return "SELECT PostID, UserID, MainPostImage, Title, Message, PostTime FROM Posts ";
  }
+ 
+// select statement which returns the user id for a post ID
+// not sure this is necessary 
+protected function getUserIDStatement($postID){
+    return "SELECT UserID FROM Posts WHERE PostID = $postID ";
+} 
 
 // records against which to order the data
 protected function getOrderFields() {
@@ -19,7 +25,7 @@ protected function getOrderFields() {
  
  // find the primary key of the table
 protected function getPrimaryKeyName() {
-    return "PostID,UserID";
+    return "PostID, UserID";
  } 
 }
 

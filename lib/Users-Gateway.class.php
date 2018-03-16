@@ -17,6 +17,10 @@ protected function getOrderFields() {
     return 'FirstName, LastName';
  }
  
+protected function getIDFullNameStatement(){
+    return "SELECT UserID, FirstName, LastName FROM Users ";
+}
+ 
  // find the primary key of the table
 protected function getPrimaryKeyName() {
     return "UserID";

@@ -10,6 +10,14 @@ public function __construct($connect) {
 protected function getSelectStatement(){
     return "SELECT CityCode, AsciiName, CountryCodeISO, Latitude, Longitude, Population, Elevation, TimeZone  FROM Cities ";
  }
+ 
+protected function getIDNameStatement(){
+    return "SELECT CityCode, AsciiName FROM Cities "; 
+}
+
+protected function getIDNameWithPicturesStatement(){
+    return $this->getIDNameStatement()."INNER JOIN ImageDetails ON ImageDetails.CityCode = Cities.CityCode GROUP BY ".$this->getOrderFields();
+}
 
 // records against which to order the data
 protected function getOrderFields() {

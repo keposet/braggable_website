@@ -10,6 +10,14 @@ public function __construct($connect) {
 protected function getSelectStatement(){
     return "SELECT ISO, ISONumeric, CountryName, Capital, CityCode, Area, Population, Continent, TopLevelDomain, CurrencyCode, CurrencyName, PhoneCountryCode, Languages, Neighbours, CountryDescription FROM Countries ";
  }
+ 
+protected function getIDCountryNameStatement(){
+    return "SELECT ISO, CountryName FROM Countries ";
+} 
+
+protected function getIDCountryNameWithPicturesStatement(){
+    return $this->getIDCountryNameStatement()."INNER JOIN ImageDetails ON Countries.ISO = ImageDetails.CountryCodeISO GROUP BY ".$this->getOrderFields();
+}
 
 // records against which to order the data
 protected function getOrderFields() {

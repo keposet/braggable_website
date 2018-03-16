@@ -11,6 +11,10 @@ public function __construct($connect) {
 protected function getSelectStatement(){
     return "SELECT ImageID, PostID FROM PostImages ";
  }
+ 
+protected function getAssociatedImagesStatement($post){
+    return "SELECT ImageID FROM PostImages WHERE PostID = $post ";
+} 
 
 // records against which to order the data
 protected function getOrderFields() {
