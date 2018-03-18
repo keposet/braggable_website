@@ -84,7 +84,6 @@ abstract class AbstractGateway
 {
     $sql = $this->getSelectStatement() . ' WHERE ' .
     $this->getPrimaryKeyName() . '=:id';
-   
     $statement = DatabaseHelper::runQuery($this->connection, $sql,
     Array(':id' => $id));
     return $statement->fetch();

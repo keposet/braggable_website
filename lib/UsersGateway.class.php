@@ -1,6 +1,6 @@
 <?php
 
-class UsersGateway extends TableDataGateway{
+class UsersGateway extends AbstractGateway{
 
 public function __construct($connect) {
     parent::__construct($connect);
@@ -37,7 +37,7 @@ protected function getPrimaryKeyName() {
             $sql =$this->getSelectStatement();
             break;
     }
-    $statement = DatabaseHelper::runQuery($this->$connection, $sql, null);
+    $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
     return $statement->fetchAll();
  } 
  

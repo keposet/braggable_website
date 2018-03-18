@@ -21,14 +21,26 @@ class DatabaseHelper {
  // protection must be used whenever a user can input query data
         //IE all "single-item" pages
  public static function runQuery($connection, $sql, $parameters=array()) {
+    //  print_r($parameters);
+    //  echo "line 25";
+    //  echo '<br>';
  // Ensure parameters are in an array
      if (!is_array($parameters)) {
         $parameters = array($parameters);
+        // print_r($parameters);
      }
+     
+    //  print_r($parameters);
+    //  echo "line 33";
+    //  echo '<br>';
      $statement = null;
      if (count($parameters) > 0) {
      // Use a prepared statement if parameters
         $statement = $connection->prepare($sql);
+        print_r($statement);
+        print_r($parameters);
+        $statement->execute($parameters);
+        
         $executedOk = $statement->execute($parameters);
          if (! $executedOk) {
             throw new PDOException;

@@ -19,12 +19,14 @@ protected function getIDNameStatement(){
 }
 
 protected function getIDNameWithPicturesStatement(){
-    return $this->getIDNameStatement(). "INNER JOIN ImageDetails ON Continents.ContinentCode = ImageDetails.ContinentCode GROUP BY ".$this->getOrderFields();
+    $table = $this->table;
+    $sqlStart = "SELECT $table.ContinentCode, ContinentName FROM Continents ";
+    return $sqlStart. "INNER JOIN ImageDetails ON Continents.ContinentCode = ImageDetails.ContinentCode GROUP BY ".$this->getOrderFields();
 }
 
 // records against which to order the data
 protected function getOrderFields() {
-    return 'ContinentName';
+    return 'Continents.ContinentName';
  }
  
  // find the primary key of the table
@@ -46,7 +48,7 @@ public function findByStatement($choice){
             break;
     }
     
-    $statement = DatabaseHelper::runQuery($this->$connection, $sql, null);
+    $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
     return $statement->fetchAll();
 } 
 

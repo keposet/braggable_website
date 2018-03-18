@@ -1,6 +1,6 @@
 <?php
 
-class PostImagesGateway extends TableDataGateway{
+class PostImagesGateway extends AbstractGateway{
 
 public function __construct($connect) {
     parent::__construct($connect);
@@ -14,22 +14,22 @@ protected function getSelectStatement(){
     return "SELECT ImageID, PostID FROM PostImages ";
  }
  
-protected function getAssociatedImagesStatement($post){
-    return "SELECT ImageID FROM PostImages WHERE PostID = $post ";
+protected function getAssociatedImagesStatement(){
+    return "SELECT ImageID FROM PostImages WHERE PostID = :val ";
 } 
 
 // records against which to order the data
 protected function getOrderFields() {
-    return 'PostID, ImageID';
+    return 'PostID';
  }
  
  // find the primary key of the table
 protected function getPrimaryKeyName() {
-    return "PostID, ImageID";
+    return "ImageID";
  }
 
-
- public function findByStatement($choice)
+//value should never be null.
+ public function findByStatement($choice, $value)
  {
     switch($choice){
         case '1':
@@ -39,7 +39,14 @@ protected function getPrimaryKeyName() {
             $sql =$this->getSelectStatement();
             break;
     }
-    $statement = DatabaseHelper::runQuery($this->connection, $sql, $null);
+    
+     if ($value == null) {
+        $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
+    }else{
+        // echo $sql;
+        $statement = DatabaseHelper::runQuery($this->connection, $sql, Array(':val' => $value));
+    }
+    // $statement = DatabaseHelper::runQuery($this->connection, $sql, $null);
     return $statement->fetchAll(); 
  } 
 

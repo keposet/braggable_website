@@ -1,6 +1,6 @@
 <?php
 
-class PostsGateway extends TableDataGateway{
+class PostsGateway extends AbstractGateway{
 
 public function __construct($connect) {
     parent::__construct($connect);
@@ -17,7 +17,7 @@ protected function getSelectStatement(){
 // select statement which returns the user id for a post ID
 // not sure this is necessary 
 protected function getUserIDStatement($postID){
-    return "SELECT UserID FROM Posts WHERE PostID = $postID ";
+    return "SELECT UserID FROM Posts WHERE PostID = :val ";
 } 
 
 // records against which to order the data
@@ -27,20 +27,26 @@ protected function getOrderFields() {
  
  // find the primary key of the table
 protected function getPrimaryKeyName() {
-    return "PostID, UserID";
+    return "PostID";
  }
+ 
  
  public function findByStatement($choice, $value){
     switch ($choice) {
         case '1':
-            $sql = $this-> getIDNameStatement($value);
+            $sql = $this-> getUserIDStatement();
             break;
         default:
             $sql =$this->getSelectStatement();
             break;
     }
-    
-    $statement = DatabaseHelper::runQuery($this->$connection, $sql, Array(':value' => $value));
+     if ($value == null) {
+        $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
+    }else{
+        echo $sql;
+        $statement = DatabaseHelper::runQuery($this->connection, $sql, Array(':val' => $value));
+    }
+    // $statement = DatabaseHelper::runQuery($this->$connection, $sql, Array(':value' => $value));
     return $statement->fetchAll();
  }
 

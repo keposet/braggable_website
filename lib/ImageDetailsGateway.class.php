@@ -19,20 +19,20 @@ protected function getIDPathStatement(){
     return "SELECT ImageID, Path FROM ImageDetails ";
 }
 
-protected function getAllByContinent($continent){
-    return $this->getSelectStatement()."WHERE ContinentCode = $continent";
+protected function getAllByContinent(){
+    return $this->getSelectStatement()."WHERE ContinentCode = :val";
 }
 
-protected function getAllByCountry($country){
-    return $this->getSelectStatement()."WHERE CountryCodeISO = $country";
+protected function getAllByCountry(){
+    return $this->getSelectStatement()."WHERE CountryCodeISO = :val";
 }
 
-protected function getAllByCity($city){
-    return $this->getSelectStatement()."WHERE CityCode = $city";
+protected function getAllByCity(){
+    return $this->getSelectStatement()."WHERE CityCode = :val";
 }
 
-protected function getAllByUser($user){
-    return $this->getSelectStatement()."WHERE UserID = $user";
+protected function getAllByUser(){
+    return $this->getSelectStatement()."WHERE UserID = :val";
 }
 
 // records against which to order the data
@@ -54,25 +54,26 @@ public function findByStatement($choice, $value){
             $sql = $this-> getIDPathStatement();
             break;
         case '2':
-            $sql =$this-> getAllByContinent($value);
+            $sql =$this-> getAllByContinent();
             break;
         case '3':
-            $sql =$this-> getAllByCountry($value);
+            $sql =$this-> getAllByCountry();
             break;
         case '4':
-            $sql =$this-> getAllByCity($value);
+            $sql =$this-> getAllByCity();
             break;
         case '5':
-            $sql =$this-> getAllByUser($value);
+            $sql =$this-> getAllByUser();
             break;
         default:
             $sql =$this->getSelectStatement();
             break;
     }
     if ($value == null) {
-        $statement = DatabaseHelper::runQuery($this->$connection, $sql, null);
+        $statement = DatabaseHelper::runQuery($this->connection, $sql, null);
     }else{
-        $statement = DatabaseHelper::runQuery($this->$connection, $sql, Array(':val' => $value));
+        //echo $sql;
+        $statement = DatabaseHelper::runQuery($this->connection, $sql, Array(':val' => $value));
     }
     return $statement->fetchAll();
  }
