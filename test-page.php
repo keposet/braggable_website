@@ -11,6 +11,7 @@ require 'includes/travel-dbConfig.inc.php';
 
 
 try {
+    /*
     $cities = new CitiesGateway($connection);
     $allCities = $cities->findall();
     $bool = True;
@@ -28,7 +29,29 @@ try {
     $allIDName = $countries ->findByStatement('1');
     $allIDNamePic = $countries ->findByStatement('2');
     $fields = $countries ->getFields();
+    */
     
+    $result = new ContinentGateway($connection);
+    $result = new ImageDetailsGateway($connection);
+    // $result = new PostImagesGateway($connection);
+    // $result = new PostsGateway($connection);
+    // $result = new UsersGateway($connection);
+    // $result = new UsersLoginGateway($connection);
+    
+    $bool = True;
+    $rID = "CA";
+    
+    $all = $result ->findall();
+    $allSorted = $result ->findallsorted($bool);
+    $findID = $result ->findbyID($rID);
+    // $findBy1 = $result ->findByStatement('1','luisg@embraer.com.br');
+    // $findBy2 = $result ->findByStatement('2', '1');
+    $findBy3 = $result ->findByStatement('3', "CA");
+    // $findBy2 = $result ->findByStatement('2', 'NA');
+    // $findBy3 = $result ->findByStatement('3', 'CA');
+    // $findBy4 = $result ->findByStatement('4', '5913490');
+    // $findBy5 = $result ->findByStatement('5', '1');
+    $fields = $result ->getFields();
     
     
     
@@ -75,6 +98,8 @@ function iterateSingleRecord($record, $fields){
 <html>
     <body>
         <?php
+        $test = "UsersLogin";
+        
         /*
         echoString("Cities Find All");
         insertBR();
@@ -103,35 +128,52 @@ function iterateSingleRecord($record, $fields){
         insertBR();
         iterateThruStmt($cityIDNamePic, Array('0','1'));
         */
-        /*
-        echoString("All Countries");
+        
+       /* echoString("All $test");
         insertBR();
         iterateThruStmt($all ,$fields);
-        */
-        /*
-        echoString("All Sorted");
+        
+        echoString("All $test Sorted");
         insertBR();
         iterateThruStmt($allSorted,$fields);
-        */
-        /*
-        echoString("By ID");
+        
+        echoString("$test By ID");
         insertBR();
         iterateSingleRecord($findID,$fields);
-        */
-        
-        echoString("ID and Name");
-        insertBR();
-        iterateThruStmt($allIDName,Array('0','1'));
         
         
-        echoString("Filter by Pics");
+        echoString("$test ID by Username");
         insertBR();
+        iterateThruStmt($findBy1,Array('0'));
+        print_r($findBy1);
+        
+        echoString("$test Salt by ID");
         insertBR();
+        iterateThruStmt($findBy2,Array('0'));
+         print_r($findBy2);
+         */
+        
+        echoString("$test ID by Password");
         insertBR();
+        iterateThruStmt($findBy3,$fields);
+         print_r($findBy3);
+        
+        /*
+        echoString("Filter $test by Continent");
         insertBR();
+        iterateThruStmt($findBy2,$fields);
+        
+        echoString("Filter $test by Country");
         insertBR();
+        iterateThruStmt($findBy3,$fields);
+        
+        echoString("Filter $test by City");
         insertBR();
-        iterateThruStmt($allIDNamePic,Array('0','1'));
+        iterateThruStmt($findBy4,$fields);
+        
+        echoString("Filter $test by User");
+        insertBR();
+        iterateThruStmt($findBy5,$fields);*/
         
         
         ?>
