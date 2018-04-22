@@ -14,6 +14,10 @@ protected function getSelectStatement(){
     return "SELECT ImageID, UserID, Title, Description, Latitude, Longitude, CityCode, CountryCodeISO, ContinentCode, Path FROM ImageDetails ";
  }
  
+protected function getIDPathTitleCityCountryContinentDescription(){
+    return "SELECT ImageID, Path, Title, CityCode, CountryCodeISO, ContinentCode, Description FROM ImageDetails ";
+ }
+ 
 // what do i need? mostly just path and ID 
 protected function getIDPathStatement(){
     return "SELECT ImageID, Path FROM ImageDetails ";
@@ -64,6 +68,9 @@ public function findByStatement($choice, $value){
             break;
         case '5':
             $sql =$this-> getAllByUser();
+            break;
+        case '6':
+            $sql =$this->getIDPathTitleCityCountryContinentDescription();
             break;
         default:
             $sql =$this->getSelectStatement();

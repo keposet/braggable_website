@@ -37,8 +37,8 @@ class DatabaseHelper {
      if (count($parameters) > 0) {
      // Use a prepared statement if parameters
         $statement = $connection->prepare($sql);
-        print_r($statement);
-        print_r($parameters);
+        //print_r($statement);
+        //print_r($parameters);
         $statement->execute($parameters);
         
         $executedOk = $statement->execute($parameters);

@@ -32,12 +32,16 @@ try {
     */
     
     $result = new ContinentGateway($connection);
-    $result = new ImageDetailsGateway($connection);
-    // $result = new PostImagesGateway($connection);
-    // $result = new PostsGateway($connection);
-    // $result = new UsersGateway($connection);
-    // $result = new UsersLoginGateway($connection);
+    $cntIDName = $result -> findByStatement(2);
+    $result = new CountriesGateway($connection);
+    $cntryIDName = $result -> findByStatement(2);
+    $result = new CitiesGateway($connection); 
+    $ctyIDName = $result -> findByStatement(2);
     
+    
+/*    
+    $result = new ImageDetailsGateway($connection);
+
     $bool = True;
     $rID = "CA";
     
@@ -52,7 +56,7 @@ try {
     // $findBy4 = $result ->findByStatement('4', '5913490');
     // $findBy5 = $result ->findByStatement('5', '1');
     $fields = $result ->getFields();
-    
+*/    
     
     
 } catch (Exception $e ) {
@@ -80,6 +84,7 @@ function iterateThruStmt($record, $fields){
         insertBR();
         }
 }
+
 function iterateSingleRecord($record, $fields){
     foreach($fields as $f){
         echo $record[$f]." ";
@@ -87,18 +92,79 @@ function iterateSingleRecord($record, $fields){
     insertBR();
 }
 
+function populateDropDown($records, $id){
+    foreach ($records as $r) {
+        $code = $r[0];
+        $name = $r[1];
+        echo "<option id= $id$code value = $code>$name</option>";
+                            
+        }
+}
 
-
-
-
+function opDropDownStructure($choice, $record){
+    switch ($choice){
+        case "continent":
+            $ddName = "cnt";
+            $ddID = "cntDD";
+            $defOption = "Continent";
+            
+            break;
+        case "country":
+            $ddName = "cntry";
+            $ddID = "cntryDD";
+            $defOption = "Country";
+            
+            break;
+        case "city":
+            $ddName = "city";
+            $ddID = "ctyDD";
+            $defOption = "City";
+            
+            break;
+    }
+    echo "<select name = $ddName id= $ddID>";
+    echo "<option value =0>$defOption</option>";
+    populateDropDown($record,$ddID);
+    echo "</select>";
+}
 
 ?>
 
 <!DOCTYPE html>
 <html>
     <body>
+        
+        <div>
+            <form action="test-page.php" method = GET>
+                
+             
+                    <?php
+                    opDropDownStructure("continent", $cntIDName);
+                    opDropDownStructure("country", $cntryIDName);
+                    opDropDownStructure("city", $ctyIDName);
+                       /* foreach ($idName as $parent) {
+                            
+                                $code = $parent[0];
+                                $name = $parent[1];
+                                $id = "cntDD$code"; 
+                                echo "<option id= $id value = $code>$name</option>";
+                            
+                        }*/
+                    ?>
+                    
+                    
+                    
+                
+                <input type="submit" value="Submit"/>
+            </form>
+            <?php
+            //   print_r($idName);
+            ?>
+            
+            
+        </div>
         <?php
-        $test = "UsersLogin";
+       // $test = "UsersLogin";
         
         /*
         echoString("Cities Find All");
@@ -127,9 +193,9 @@ function iterateSingleRecord($record, $fields){
         echoString("Cities findByStatement 2");
         insertBR();
         iterateThruStmt($cityIDNamePic, Array('0','1'));
-        */
         
-       /* echoString("All $test");
+        
+        echoString("All $test");
         insertBR();
         iterateThruStmt($all ,$fields);
         
@@ -151,14 +217,13 @@ function iterateSingleRecord($record, $fields){
         insertBR();
         iterateThruStmt($findBy2,Array('0'));
          print_r($findBy2);
-         */
+         
         
         echoString("$test ID by Password");
         insertBR();
         iterateThruStmt($findBy3,$fields);
          print_r($findBy3);
         
-        /*
         echoString("Filter $test by Continent");
         insertBR();
         iterateThruStmt($findBy2,$fields);
