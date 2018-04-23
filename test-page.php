@@ -142,14 +142,6 @@ function opDropDownStructure($choice, $record){
                     opDropDownStructure("continent", $cntIDName);
                     opDropDownStructure("country", $cntryIDName);
                     opDropDownStructure("city", $ctyIDName);
-                       /* foreach ($idName as $parent) {
-                            
-                                $code = $parent[0];
-                                $name = $parent[1];
-                                $id = "cntDD$code"; 
-                                echo "<option id= $id value = $code>$name</option>";
-                            
-                        }*/
                     ?>
                     
                     

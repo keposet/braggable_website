@@ -160,7 +160,7 @@ function pictures($imgRec){
                 hidPics[i].removeAttribute("hidden");
             }
             
-        })
+        });
 
         
     </script>
